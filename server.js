@@ -4,7 +4,9 @@ const {PORT, DATABASE_URL } = require('./config');
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const jsonParser = bodyParser.json();
+const {router: reportsRouter} = require('./routers/reports');
 const app = express();
+app.use(express.static('public'));
 /*
 app.use(function (req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
@@ -17,10 +19,11 @@ app.use(function (req, res, next) {
 });
 */
 app.use(jsonParser);
+app.use('/api/reports',reportsRouter);
 
 function runServer( databaseUrl, port = PORT) {
   return new Promise((resolve, reject) => {
-    mongoose.connect(databaseUrl,{ useNewUrlParser: true },err => {
+    mongoose.connect(databaseUrl,{ useNewUrlParser: true,useUnifiedTopology: true  },err => {
       if (err) {
         return reject(err);
       }

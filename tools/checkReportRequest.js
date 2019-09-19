@@ -28,7 +28,7 @@ let checkReportRequest = function(req,res,next){
 			});
 		}
 	}
-	//console.log(reportOptions);
+
 	next();
 }
 

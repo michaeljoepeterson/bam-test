@@ -1,2 +1,4 @@
 const {checkReportRequest} = require('./checkReportRequest');
-module.exports = {checkReportRequest};
+const {buildKey} = require('./buildKey');
+
+module.exports = {checkReportRequest,buildKey};

@@ -1,7 +1,18 @@
 const request = require('request');
 
-function PostReports(reportOptions,url,key){
+function sanitizeRequest(reportOptions){
 	reportOptions.name = 'Search';
+	if(!reportOptions.end_row){
+		reportOptions.end_row = '100';
+	}
+	if(!reportOptions.start_row){
+		reportOptions.start_row = '1';
+	}
+}
+
+function PostReports(reportOptions,url,key){
+	sanitizeRequest(reportOptions);
+
 	let promise = new Promise((resolve,reject) => {
 		const options = {
 			url:url,

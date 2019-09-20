@@ -8,6 +8,12 @@ let checkReportRequest = function(req,res,next){
 
 	let reportOptions = req.body;
 	let optionsKeys = Object.keys(reportOptions);
+	if(!reportOptions.start_date || ! reportOptions.end_date){
+		return res.json({
+			code:500,
+			error:'Please enter dates'
+		});
+	}
 	if(optionsKeys.length > 4 || optionsKeys.length < 1){
 		return res.json({
 			code:500,

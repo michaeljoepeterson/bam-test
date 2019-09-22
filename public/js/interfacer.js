@@ -4,6 +4,8 @@ function Interfacer(options){
 	this.nameInput = options.nameInput;
 	this.getButton = options.getButton;
 	this.downloadLink = options.downloadLink
+	this.loader = options.loader;
+	//console.log(options);
 	this.initListeners();
 }
 
@@ -40,20 +42,22 @@ Interfacer.prototype.buildExcelData = function(records,excelArr){
 //https://www.freakyjolly.com/create-and-download-xsl-excel-from-json-response-data-in-webpage/
 //to create the excel just do it client side
 Interfacer.prototype.postReport = function(event) {
-	var startDate = this.startInput.value;
-	var endDate = this.endInput.value;
-	var reportOptions = {
+	let startDate = this.startInput.value;
+	let endDate = this.endInput.value;
+	let reportOptions = {
 		start_date:startDate,
 		end_date:endDate
 	};
-	var settings = {
+	let settings = {
 		method:'POST',
 		url:'/api/reports',
 		data:JSON.stringify(reportOptions),
 		contentType: 'application/json'
 
 	};
-	console.log('event',startDate,endDate);
+	//console.log(this.loader);
+	this.loader.classList.remove('hide');
+	this.getButton.setAttribute('disabled','true');
 	$.ajax(settings)
 
 	.then(data => {
@@ -72,10 +76,14 @@ Interfacer.prototype.postReport = function(event) {
             ws = XLSX.utils.aoa_to_sheet(excelArr);
         XLSX.utils.book_append_sheet(wb, ws, ws_name);
         XLSX.writeFile(wb, fileName);
-		
+		this.loader.classList.add('hide');
+		this.getButton.attributes.disabled = 'false';
+		this.getButton.removeAttribute('disabled');
 	})
 
 	.catch(err => {
 		console.log('err: ',err);
+		this.loader.classList.add('hide');
+		this.getButton.removeAttribute('disabled');
 	})
 };

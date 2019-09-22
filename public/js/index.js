@@ -4,7 +4,8 @@ function App(options){
 		endInput:$('#' + options.endId)[0],
 		getButton:$('#' + options.getButtonId)[0],
 		downloadLink:$('#' + options.downloadLinkId)[0],
-		nameInput:$('#' + options.fileNameId)[0]
+		nameInput:$('#' + options.fileNameId)[0],
+		loader:$('#' + options.loaderId)[0]
 	});
 }
 
@@ -13,5 +14,6 @@ var app = new App({
 	endId:'end_date',
 	getButtonId:'get-data',
 	downloadLinkId:'downloadLink',
-	fileNameId:'file_name'
+	fileNameId:'file_name',
+	loaderId:'loader'
 });

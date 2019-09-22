@@ -3,6 +3,9 @@ const {checkReportRequest,buildKey} = require('../tools/configTools');
 const {PostReports} = require('../BamSDK/configBam');
 const {URL,MERCHANT_ID,REPORT_KEY} = require('../config');
 const router = express.Router();
+const json2xls = require('json2xls');
+const fs = require('fs');
+const path = require('path');
 
 router.post('/',checkReportRequest,(req,res) => {
 	const reportOptions = req.body;
@@ -12,12 +15,31 @@ router.post('/',checkReportRequest,(req,res) => {
 
 	.then(data => {
 		return res.json({
-			status:400,
+			status:200,
 			data
 		});
+		
 	})
-
+	/*
+	.then(data => {
+		let xlsData = json2xls(data.records);
+		return fs.writeFileSync('./data/testData.xlsx',xlsData,'binary');
+		fs.writeFileSync('./data/testData.xlsx',xlsData,'binary');
+		return res.json({
+			status:200,
+			xlsData
+		});
+		
+	})
+	
+	.then(excelData => {
+		res.setHeader('Content-Type', 'application/octet-stream');
+		//console.log(__dirname + '/data/testData.xlsx');
+		return res.sendFile(path.resolve('data/testData.xlsx'));
+	})
+	*/
 	.catch(err=>{
+		console.log('error',err);
 		return res.json({
 			status:500,
 			err

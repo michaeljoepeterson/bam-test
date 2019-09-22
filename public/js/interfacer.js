@@ -1,8 +1,7 @@
-
-
 function Interfacer(options){
 	this.startInput = options.startInput;
 	this.endInput = options.endInput;
+	this.nameInput = options.nameInput;
 	this.getButton = options.getButton;
 	this.downloadLink = options.downloadLink
 	this.initListeners();
@@ -58,23 +57,21 @@ Interfacer.prototype.postReport = function(event) {
 	$.ajax(settings)
 
 	.then(data => {
-		console.log('data: ',data);
+		console.log('data: ',data,this.nameInput.value);
+		let fileName = this.nameInput.value !== '' ? this.nameInput.value : 'bambora-data';
 		let excelArr = [];
 		let headers = ['email','name','amount','Transaction Date'];
 		excelArr.push(headers);
 		this.buildExcelData(data.data.records,excelArr);
+		/* Sheet Name */
+		let ws_name = fileName;
 		/* File Name */
-        let filename = "FreakyJSON_To_XLS.xlsx";
+        fileName += ".xlsx";
         console.log(excelArr);
-        /* Sheet Name */
-        let ws_name = "FreakySheet";
 		let wb = XLSX.utils.book_new(),
             ws = XLSX.utils.aoa_to_sheet(excelArr);
         XLSX.utils.book_append_sheet(wb, ws, ws_name);
-        XLSX.writeFile(wb, filename);
-		//let excelData = this.createBlobExcel(workSheet);
-		//let excelData = this.createBlobExcel(data.xlsData);
-		//this.createDownload(excelData);
+        XLSX.writeFile(wb, fileName);
 		
 	})
 

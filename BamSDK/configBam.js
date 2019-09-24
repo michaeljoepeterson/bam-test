@@ -1,2 +1,2 @@
-const {PostReports} = require('./PostReports');
+const {PostReports} = require('./postReports');
 module.exports = {PostReports};

@@ -39,7 +39,6 @@ Interfacer.prototype.buildExcelData = function(records,excelArr){
 		excelArr.push(innerData);
 	}
 };
-//https://www.freakyjolly.com/create-and-download-xsl-excel-from-json-response-data-in-webpage/
 //to create the excel just do it client side
 Interfacer.prototype.postReport = function(event) {
 	let startDate = this.startInput.value;

@@ -25,11 +25,13 @@ function PostReports(reportOptions,url,key){
 		};
 
 		request(options,function(error,response,body){
-			console.log('sucessful call',body);
+			console.log('sucessful call');
 			if(body.records){
+				console.log('sucessful call success');
 				resolve(body);
 			}
 			else{
+				console.log('sucessful call error');
 				reject(body);
 			}
 			

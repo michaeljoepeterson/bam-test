@@ -50,7 +50,7 @@ Interfacer.prototype.postReport = function(event) {
 	};
 	let settings = {
 		method:'POST',
-		url:'/api/reports',
+		url:'https://bambora-test.herokuapp.com//api/reports',
 		data:JSON.stringify(reportOptions),
 		contentType: 'application/json'
 

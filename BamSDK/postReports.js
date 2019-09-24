@@ -12,7 +12,7 @@ function sanitizeRequest(reportOptions){
 
 function PostReports(reportOptions,url,key){
 	sanitizeRequest(reportOptions);
-
+	console.log('in post reports',reportOptions);
 	let promise = new Promise((resolve,reject) => {
 		const options = {
 			url:url,
@@ -25,7 +25,7 @@ function PostReports(reportOptions,url,key){
 		};
 
 		request(options,function(error,response,body){
-			//console.log(body);
+			console.log('sucessful call',body);
 			if(body.records){
 				resolve(body);
 			}

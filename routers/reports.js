@@ -11,6 +11,7 @@ router.post('/',checkReportRequest,(req,res) => {
 	const reportOptions = req.body;
 	const authKey = buildKey(MERCHANT_ID,REPORT_KEY);
 	const reportUrl = URL + '/reports';
+	console.log('report request',reportOptions);
 	return PostReports(reportOptions,reportUrl,authKey)
 
 	.then(data => {
@@ -20,24 +21,7 @@ router.post('/',checkReportRequest,(req,res) => {
 		});
 		
 	})
-	/*
-	.then(data => {
-		let xlsData = json2xls(data.records);
-		return fs.writeFileSync('./data/testData.xlsx',xlsData,'binary');
-		fs.writeFileSync('./data/testData.xlsx',xlsData,'binary');
-		return res.json({
-			status:200,
-			xlsData
-		});
-		
-	})
-	
-	.then(excelData => {
-		res.setHeader('Content-Type', 'application/octet-stream');
-		//console.log(__dirname + '/data/testData.xlsx');
-		return res.sendFile(path.resolve('data/testData.xlsx'));
-	})
-	*/
+
 	.catch(err=>{
 		console.log('error',err);
 		return res.json({
